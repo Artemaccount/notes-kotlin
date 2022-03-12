@@ -3,12 +3,15 @@ import note.Note
 import note.NoteComment
 import note.NoteService
 import org.junit.Assert.*
+import org.junit.BeforeClass
 import org.junit.Test
 
 class NoteServiceTests {
+
     @Test
     fun add_success_test() {
-        val newNote = Note(1, "some text", "some title")
+        NoteService.get().clear()
+        val newNote = Note(16, "some text", "some title")
         NoteService.add(newNote)
         val expectedSize = 1
         val actualSize = NoteService.get().size
@@ -100,7 +103,7 @@ class NoteServiceTests {
 
         val actualSizeAfterRestoreComment = NoteService.getComments(14).size
         val expetctedSizeAfterRestoreComment = 1
-        
+
         assertEquals(expetctedSizeAfterRestoreComment, actualSizeAfterRestoreComment)
 
     }
