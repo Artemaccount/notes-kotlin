@@ -14,7 +14,7 @@ object NoteService {
 
     fun addCommentToNote(noteId: Int, comment: NoteComment) {
         notes[noteId] ?: throw NoSuchNoteException("Note is not found")
-        notes[noteId]!!.commentsList[comment.id] = comment
+        notes[noteId]?.commentsList?.set(comment.id, comment)
     }
 
     fun delete(noteId: Int) {
@@ -28,7 +28,7 @@ object NoteService {
         if (comment == null || comment.isDeleted) {
             throw NoSuchCommentException("Comment is not found")
         }
-        notes[noteId]!!.commentsList[commentId]!!.isDeleted = true
+        notes[noteId]?.commentsList?.get(commentId)?.isDeleted = true
         return true
     }
 
@@ -42,9 +42,9 @@ object NoteService {
         return notes
     }
 
-    fun getById(noteId: Int): Note {
+    fun getById(noteId: Int): Note? {
         notes[noteId] ?: throw NoSuchNoteException("Note is not found")
-        return notes[noteId]!!
+        return notes[noteId]
     }
 
 
@@ -69,6 +69,6 @@ object NoteService {
         if (!noteComment.isDeleted) {
             throw CommentNotDeletedException("Comment is not deleted")
         }
-        notes[noteId]!!.commentsList[commentId]!!.isDeleted = false
+        notes[noteId]?.commentsList?.get(commentId)?.isDeleted = false
     }
 }
